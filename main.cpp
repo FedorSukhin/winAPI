@@ -46,23 +46,22 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 	case WM_COMMAND://отобращает сообщение нажата на кнопку и т.д
+	{
+		HWND hEditLodin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
+		HWND hEditPassword = GetDlgItem(hwnd, IDC_EDIT_PASSWORD);
+		CONST INT SIZE = 256;
+		CHAR sz_buffer[SIZE] = {};
 		switch (LOWORD(wParam))//параметр младшего слова
 		{
 		case IDC_EDIT_LOGIN:
 			if (HIWORD(wParam) == EN_SETFOCUS)
 			{
-				HWND hEditLodin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
-				CONST INT SIZE = 256;
-				CHAR sz_buffer[SIZE] = {};
 				SendMessage(hEditLodin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 				if (strcmp(sz_buffer, gsz_DEFAULT_LOGIN_MESSAGE) == 0)
 					SendMessage(hEditLodin, WM_SETTEXT, 0, (LPARAM)"");
 			}
 			if (HIWORD(wParam) == EN_KILLFOCUS)
 			{
-				HWND hEditLodin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
-				CONST INT SIZE = 256;
-				CHAR sz_buffer[SIZE] = {};
 				SendMessage(hEditLodin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 				if (strcmp(sz_buffer, "") == 0)
 					SendMessage(hEditLodin, WM_SETTEXT, 0, (LPARAM)gsz_DEFAULT_LOGIN_MESSAGE);
@@ -71,18 +70,12 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDC_EDIT_PASSWORD:
 			if (HIWORD(wParam) == EN_SETFOCUS)
 			{
-				HWND hEditPassword = GetDlgItem(hwnd, IDC_EDIT_PASSWORD);
-				CONST INT SIZE = 256;
-				CHAR sz_buffer[SIZE] = {};
 				SendMessage(hEditPassword, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 				if (strcmp(sz_buffer, gsz_DEFAULT_PASSWORD_MESSAGE) == 0)
 					SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)"");
 			}
 			if (HIWORD(wParam) == EN_KILLFOCUS)
 			{
-				HWND hEditPassword = GetDlgItem(hwnd, IDC_EDIT_PASSWORD);
-				CONST INT SIZE = 256;
-				CHAR sz_buffer[SIZE] = {};
 				SendMessage(hEditPassword, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 				if (strcmp(sz_buffer, "") == 0)
 					SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)gsz_DEFAULT_PASSWORD_MESSAGE);
@@ -90,10 +83,6 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		case IDC_BUTTON_COPY:
 		{
-			HWND hEditLodin = GetDlgItem(hwnd, IDC_EDIT_LOGIN);
-			HWND hEditPassword = GetDlgItem(hwnd, IDC_EDIT_PASSWORD);
-			CONST INT SIZE = 256;
-			CHAR sz_buffer[SIZE] = {};
 			SendMessage(hEditLodin, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 			SendMessage(hEditPassword, WM_SETTEXT, 0, (LPARAM)sz_buffer);
 		}
@@ -101,7 +90,8 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDOK: MessageBox(hwnd, "Была нажата кнопка ОК", "Info", MB_OK | MB_ICONINFORMATION); break;
 		case IDCANCEL: EndDialog(hwnd, 0); break;
 		}
-		break;
+	}
+	break;
 	case WM_CLOSE: EndDialog(hwnd, 0);
 	}
 	return FALSE;
