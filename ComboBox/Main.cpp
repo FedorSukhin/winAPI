@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "resource.h"
 #include <cstdio>
-CONST CHAR* g_sz_STRING[] = { "This","is","my","first","Combo","Box" };
+CONST CHAR* g_sz_STRING[] = { "This","is","my","first","Combo","Box", "Have", "fun", "guys", "and", "return", "Bac"};
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
